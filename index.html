@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elyza Dianne — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blush:    #f0dff5;
+      --rose:     #9b7bb8;
+      --ink:      #241d2e;
+      --ivory:    #faf7fd;
+      --mist:     #e8ddf0;
+      --soft:     #7a6490;
+      --white:    #ffffff;
+      --lavender: #c9b8e8;
+      --lilac:    #ede0f7;
+      --display:  'Cormorant Garamond', serif;
+      --body:     'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: var(--body);
+      background: var(--ivory);
+      color: var(--ink);
+      font-size: 16px;
+    }
+
+    input[type="radio"] { display: none; }
+
+    .shell {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      width: 220px;
+      min-width: 220px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 3rem 2rem;
+      background: var(--ivory);
+      border-right: 1px solid var(--mist);
+      z-index: 10;
+    }
+
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      text-decoration: none;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+
+    .nav-sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      margin-bottom: 3rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .nav-links label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--soft);
+      padding: 0.6rem 0.8rem;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-links label:hover { color: var(--rose); }
+
+    /* ── PAGES ── */
+    .pages {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 4rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    /* ── ACTIVE STATE ── */
+    #tab-home:checked     ~ .shell .pages .page-home,
+    #tab-about:checked    ~ .shell .pages .page-about,
+    #tab-projects:checked ~ .shell .pages .page-projects,
+    #tab-skills:checked   ~ .shell .pages .page-skills,
+    #tab-contact:checked  ~ .shell .pages .page-contact {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #tab-home:checked     ~ .shell nav label[for="tab-home"],
+    #tab-about:checked    ~ .shell nav label[for="tab-about"],
+    #tab-projects:checked ~ .shell nav label[for="tab-projects"],
+    #tab-skills:checked   ~ .shell nav label[for="tab-skills"],
+    #tab-contact:checked  ~ .shell nav label[for="tab-contact"] {
+      color: var(--rose);
+      border-left-color: var(--rose);
+    }
+
+    /* ── SHARED ── */
+    .eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: var(--display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--rose); }
+
+    .divider {
+      width: 40px; height: 1px;
+      background: var(--lavender);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── HOME ── */
+    .page-home {
+      background: var(--ivory);
+      text-align: center;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .page-home::before {
+      content: '';
+      position: absolute;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--lavender) 0%, transparent 70%);
+      top: -100px; right: -80px;
+      pointer-events: none;
+    }
+
+    .page-home::after {
+      content: '';
+      position: absolute;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--lilac) 0%, transparent 70%);
+      bottom: -60px; left: -40px;
+      pointer-events: none;
+    }
+
+    .home-inner { position: relative; z-index: 1; }
+
+    .home-greeting {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-bottom: 1rem;
+    }
+
+    .home-name {
+      font-family: var(--display);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+
+    .home-name em { font-style: italic; color: var(--rose); }
+
+    .home-title {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--soft);
+      margin-bottom: 2rem;
+    }
+
+    .home-divider {
+      width: 40px; height: 1px;
+      background: var(--rose);
+      margin: 0 auto 2rem;
+    }
+
+    .home-tagline {
+      font-size: 0.85rem;
+      color: var(--soft);
+      max-width: 340px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.9;
+    }
+
+    .btn-label {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      border: 1px solid var(--rose);
+      color: var(--rose);
+      transition: all 0.3s;
+      background: transparent;
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+
+    .btn-label:hover { background: var(--rose); color: var(--white); }
+    .btn-label-filled { background: var(--rose); color: var(--white); }
+    .btn-label-filled:hover { background: transparent; color: var(--rose); }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--body);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      border: 1px solid var(--rose);
+      color: var(--white);
+      background: var(--rose);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .btn:hover { background: transparent; color: var(--rose); }
+
+    /* ── ABOUT ── */
+    .page-about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .about-photo-wrap { position: relative; width: 100%; max-width: 320px; }
+
+    .about-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--lilac);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      color: var(--soft);
+      max-height: 340px;
+    }
+
+    .about-photo-placeholder svg { width: 38px; height: 38px; opacity: 0.45; }
+
+    .about-photo-placeholder span {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.55;
+    }
+
+    .about-photo-wrap::before {
+      content: '';
+      position: absolute;
+      top: 12px; left: 12px;
+      right: -12px; bottom: -12px;
+      border: 1px solid var(--lavender);
+      z-index: -1;
+    }
+
+    .about-text {
+      font-size: 0.85rem;
+      color: #4a3d5a;
+      line-height: 1.9;
+      margin-bottom: 1.1rem;
+      text-align: justify;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .detail-row { font-size: 0.78rem; }
+
+    .detail-label {
+      color: var(--rose);
+      font-weight: 500;
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.1rem;
+    }
+
+    .detail-value { color: var(--soft); }
+
+    /* ── PROJECTS ── */
+    .page-projects {
+      background: var(--ivory);
+      align-items: flex-start;
+      padding-top: 3.5rem;
+    }
+
+    .projects-wrap { width: 100%; max-width: 860px; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      border: 1px solid var(--mist);
+      padding: 1.6rem;
+      background: var(--white);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--rose);
+      transform: translateY(-3px);
+    }
+
+    .project-number {
+      font-family: var(--display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--lavender);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    .project-title {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.78rem;
+      color: var(--soft);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+    .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      background: var(--lilac);
+      color: var(--rose);
+    }
+
+    .projects-note {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--soft);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    /* ── SKILLS ── */
+    .page-skills {
+      background: var(--white);
+      align-items: flex-start;
+      padding-top: 3.5rem;
+    }
+
+    .skills-wrap { width: 100%; max-width: 860px; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .skill-group { margin-bottom: 2rem; }
+
+    .skill-group-title {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--rose);
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--mist);
+    }
+
+    .skill-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-name { font-size: 0.8rem; color: var(--ink); }
+
+    .skill-bar-track {
+      width: 120px; height: 2px;
+      background: var(--mist);
+    }
+
+    .skill-bar-fill { height: 100%; background: var(--rose); }
+
+    .soft-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+    .soft-pill {
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--mist);
+      color: var(--soft);
+      transition: all 0.2s;
+    }
+
+    .soft-pill:hover { border-color: var(--rose); color: var(--rose); }
+
+    /* ── CONTACT ── */
+    .page-contact { background: var(--ivory); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .contact-intro {
+      font-size: 0.85rem;
+      color: var(--soft);
+      line-height: 1.9;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
+
+    .c-row { display: flex; flex-direction: column; gap: 0.15rem; }
+
+    .c-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--rose);
+    }
+
+    .c-row a, .c-row span {
+      font-size: 0.85rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .c-row a:hover { color: var(--rose); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .f-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .f-group label {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .f-group input,
+    .f-group textarea {
+      font-family: var(--body);
+      font-size: 0.85rem;
+      color: var(--ink);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--mist);
+      padding: 0.4rem 0;
+      outline: none;
+      resize: none;
+      transition: border-color 0.25s;
+    }
+
+    .f-group input:focus,
+    .f-group textarea:focus { border-color: var(--rose); }
+
+    .f-group textarea { min-height: 70px; }
+
+    /* ── FOOTER STRIP ── */
+    .footer-strip {
+      position: fixed;
+      bottom: 0; left: 220px; right: 0;
+      padding: 0.6rem 4rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.07em;
+      color: var(--lavender);
+      border-top: 1px solid var(--mist);
+      background: var(--ivory);
+      text-align: right;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { width: 160px; min-width: 160px; padding: 2rem 1.2rem; }
+      .page { padding: 2rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid, .skills-grid { grid-template-columns: 1fr; }
+      .footer-strip { left: 160px; padding: 0.6rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <input type="radio" name="tab" id="tab-home" checked/>
+  <input type="radio" name="tab" id="tab-about"/>
+  <input type="radio" name="tab" id="tab-projects"/>
+  <input type="radio" name="tab" id="tab-skills"/>
+  <input type="radio" name="tab" id="tab-contact"/>
+
+  <div class="shell">
+
+    <nav>
+      <a class="nav-logo" href="#">Elyza Dianne<br>S. Sumalinog</a>
+      <span class="nav-sub">Portfolio</span>
+      <ul class="nav-links">
+        <li><label for="tab-home">Home</label></li>
+        <li><label for="tab-about">About</label></li>
+        <li><label for="tab-projects">Projects</label></li>
+        <li><label for="tab-skills">Skills</label></li>
+        <li><label for="tab-contact">Contact</label></li>
+      </ul>
+    </nav>
+
+    <div class="pages">
+
+      <!-- HOME -->
+      <div class="page page-home">
+        <div class="home-inner">
+          <p class="home-greeting">Hey, there! Call me...</p>
+          <h2 class="home-name">Ms. <em>Whatever</em></h2>
+          <p class="home-title">Hmm wanna know more about me?</p>
+          <div class="home-divider"></div>
+          <p class="home-tagline">
+            Creative. Active. Curious.<br>
+            A person who believes that
+            <em style="font-family:'Cormorant Garamond',serif;font-style:italic;color:#9b7bb8;">"Mindset is Everything."</em>
+          </p>
+          <label for="tab-projects" class="btn-label btn-label-filled">View My Work</label>
+          <label for="tab-contact" class="btn-label">Get in Touch</label>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+    <div class="page page-about">
+    <div class="about-grid">
+
+        <div class="about-photo-wrap">
+        <img src="elimg.jpg" alt="ElxedPhoto" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;">
+        </div>
+
+        <div>
+        <span class="eyebrow">About Me</span>
+        <h2 class="section-title">A sneak peek of Ms. Whatever… 👀</h2>
+        <div class="divider"></div>
+        <p class="about-text">
+            Hi, I'm Elyza Dianne S. Sumalinog — a BS Information Technology student with a heart that once dreamed of becoming an architect or an artist. While life took a different turn, I've come to embrace it wholeheartedly. I believe everything happens for a reason, and this path in IT feels less like a detour and more like a redirection toward something greater I have yet to fully discover.
+        </p>
+        <p class="about-text">
+            Outside of academics, I thrive in movement and expression — dancing, drawing, singing, and welcoming almost any physical sport with open arms. My guiding principle, <em style="font-family:'Times New Roman', Times, serif;font-style:italic;color:#8945c9;">"Mindset is Everything,"</em> shapes how I approach challenges, growth, and life itself.
+        </p>
+        <div class="detail-grid">
+            <div class="detail-row">
+            <span class="detail-label">Name</span>
+            <span class="detail-value">Elyza Dianne S. Sumalinog</span>
+            </div>
+            <div class="detail-row">
+            <span class="detail-label">Program</span>
+            <span class="detail-value">BS Information Technology</span>
+            </div>
+            <div class="detail-row">
+            <span class="detail-label">Email</span>
+            <span class="detail-value">sumalinog.elyzadianne@dnsc.edu.ph</span>
+            </div>
+            <div class="detail-row">
+            <span class="detail-label">Interests</span>
+            <span class="detail-value">Dance, Drawing, Singing, Sports</span>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+      <!-- PROJECTS -->
+      <div class="page page-projects">
+        <div class="projects-wrap">
+          <span class="eyebrow">My Work</span>
+          <h2 class="section-title">Selected <em>Projects</em></h2>
+          <p style="font-size:0.82rem;color:#7a6490;max-width:560px;line-height:1.9;">
+            Being an IT student hasn't been easy — but every challenge has been a lesson. As a freshman, I dove into the fundamentals of computing and these are the beginnings of what I hope will be a much longer portfolio.
+          </p>
+          <div class="projects-grid">
+            <div class="project-card">
+              <div class="project-number">01</div>
+              <h3 class="project-title">Java Programming Fundamentals</h3>
+              <p class="project-desc">Introduction to object-oriented programming — variables, conditionals, loops, methods, and basic class structures.</p>
+              <div class="tags">
+                <span class="tag">Java</span>
+                <span class="tag">OOP</span>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-number">02</div>
+              <h3 class="project-title">Web Page Design</h3>
+              <p class="project-desc">Built static web pages using HTML and CSS, exploring layout, typography, and basic styling for front-end development.</p>
+              <div class="tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">Web Design</span>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-number">03</div>
+              <h3 class="project-title">GUI Application</h3>
+              <p class="project-desc">Developed a simple graphical user interface application, bridging the gap between logic and visual design in software.</p>
+              <div class="tags">
+                <span class="tag">Java</span>
+                <span class="tag">GUI</span>
+              </div>
+            </div>
+          </div>
+          <p class="projects-note">More to come — websites, applications, and beyond. </p>
+        </div>
+      </div>
+
+      <!-- SKILLS -->
+      <div class="page page-skills">
+        <div class="skills-wrap">
+          <span class="eyebrow">Expertise</span>
+          <h2 class="section-title">Skills &amp; <em>Abilities</em></h2>
+          <div class="skills-grid">
+            <div>
+              <div class="skill-group">
+                <h4 class="skill-group-title">Programming Languages</h4>
+                <div class="skill-item">
+                  <span class="skill-name">Java</span>
+                  <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div>
+                </div>
+                <div class="skill-item">
+                  <span class="skill-name">HTML</span>
+                  <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+                </div>
+                <div class="skill-item">
+                  <span class="skill-name">CSS</span>
+                  <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div>
+                </div>
+                <div class="skill-item">
+                  <span class="skill-name">GUI Development</span>
+                  <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
+                </div>
+              </div>
+              <div class="skill-group">
+                <h4 class="skill-group-title">Creative Skills</h4>
+                <div class="skill-item">
+                  <span class="skill-name">Drawing &amp; Illustration</span>
+                  <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+                </div>
+                <div class="skill-item">
+                  <span class="skill-name">Dance &amp; Performance</span>
+                  <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+                </div>
+                <div class="skill-item">
+                  <span class="skill-name">Visual Design Sense</span>
+                  <div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%"></div></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="skill-group">
+                <h4 class="skill-group-title">Soft Skills</h4>
+                <div class="soft-list">
+                  <span class="soft-pill">Adaptability</span>
+                  <span class="soft-pill">Creativity</span>
+                  <span class="soft-pill">Growth Mindset</span>
+                  <span class="soft-pill">Teamwork</span>
+                  <span class="soft-pill">Communication</span>
+                  <span class="soft-pill">Resilience</span>
+                  <span class="soft-pill">Active Learning</span>
+                  <span class="soft-pill">Problem Solving</span>
+                </div>
+              </div>
+              <div class="skill-group" style="margin-top:2rem;">
+                <h4 class="skill-group-title">Currently Learning</h4>
+                <div class="soft-list">
+                  <span class="soft-pill">Web Development</span>
+                  <span class="soft-pill">App Development</span>
+                  <span class="soft-pill">UI/UX Design</span>
+                  <span class="soft-pill">Database Management</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+    <div class="page page-contact">
+    <div class="contact-grid">
+
+        <div>
+        <span class="eyebrow">Let's Connect</span>
+        <h2 class="section-title">Get in <em>Touch</em></h2>
+        <div class="divider"></div>
+        <p class="contact-intro">
+            Whether you have a project in mind, a question to ask, or simply want to say hello — I'd love to hear from you.
+        </p>
+        <div class="contact-info">
+            <div class="c-row">
+            <span class="c-label">Email</span>
+            <a href="mailto:sumalinog.elyzadianne@dnsc.edu.ph">sumalinog.elyzadianne@dnsc.edu.ph</a>
+            </div>
+            <div class="c-row">
+            <span class="c-label">Social Media</span>
+            <a href="https://www.facebook.com/eldianna.sumalinog" target="_blank">El Dianna Sumalinog</a>
+            </div>
+        </div>
+        </div>  
+
+        <form class="contact-form" action="https://formspree.io/f/yourformid" method="POST">
+        <div class="f-group">
+            <label for="fname">Your Name</label>
+            <input type="text" id="fname" name="name" placeholder="Your name..." required/>
+        </div>
+        <div class="f-group">
+            <label for="femail">Email Address</label>
+            <input type="email" id="femail" name="email" placeholder="yn@email.com" required/>
+        </div>
+        <div class="f-group">
+            <label for="fsubject">Subject</label>
+            <input type="text" id="fsubject" name="subject" placeholder="How can I help?"/>
+        </div>
+        <div class="f-group">
+            <label for="fmessage">Message</label>
+            <textarea id="fmessage" name="message" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Message</button>
+        </form>
+
+    </div>
+    </div>
+
+    </div>
+  </div>
+
+  <div class="footer-strip">© 2026 Elyza Dianne S. Sumalinog | Ms. Whatever</div>
+
+</body>
+</html>
